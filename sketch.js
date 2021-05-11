@@ -1,18 +1,19 @@
-let musicaFundo = new p5.MonoSynth();
+let musicaFundo;
 
 function preload() {
 	imgMato = loadImage('assets/mato.png');
 	imgInstrutor = loadImage('assets/instrutor.png');
-	
+	musicaFundo = loadSound('assets/som-fundo.mp3');
 }
 
 function setup() {
 	
 	distanciaBtn = windowHeight/12;
 
-	//musicaFundo = loadSound('assets/som-fundo.mp3');
+	// mimics the autoplay policy
+	getAudioContext().suspend();
 
-	createCanvas(windowWidth, windowHeight);
+	createCanvas(windowWidth-10, windowHeight-10);
 
 	btnIniciar = createButton('Iniciar Jogo');
 	btnIniciar.position(windowWidth/2, windowHeight/7+(distanciaBtn*1));
@@ -38,32 +39,29 @@ function setup() {
 	btnCreditos.style('width', '250px');
 	btnCreditos.style('font-size', '26px');
 
-	// mimics the autoplay policy
-	getAudioContext().suspend();
-
-	// This won't play until the context has resumed
-	musicaFundo.play('A6');
+	musicaFundo.play();
+  	musicaFundo.loop();
 	
 }
-
+let s = 'Coleta Seletiva';
 function draw() {
 	background(255);
 
-	if (mouseIsPressed) {
-		fill(0);
-	} else {
-		fill(255);
-	}
+	
+	fill(50);
 
-	ellipse(mouseX, mouseY, 80, 80);
 	image(imgMato, 0, windowHeight-90);
-	image(imgInstrutor, 100, windowHeight-150);
-}
+	image(imgInstrutor, windowWidth/2, windowHeight-350);
 
-function mouseClicked() {
-	userStartAudio();
+	textSize(32);
+	textAlign(CENTER);
+	text(s, windowWidth/2, 50);
 }
 
 function teste() {
 	console.log('teste');	
+}
+
+function mousePressed() {
+  userStartAudio();
 }
