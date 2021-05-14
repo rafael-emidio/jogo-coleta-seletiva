@@ -1,8 +1,10 @@
 let musicaFundo;
+let titulo = 'Coleta Seletiva';
 
 function preload() {
 	imgMato = loadImage('assets/mato.png');
 	imgInstrutor = loadImage('assets/instrutor.png');
+	imgBalao = loadImage('assets/balao1.png');
 	musicaFundo = loadSound('assets/som-fundo.mp3');
 }
 
@@ -25,7 +27,7 @@ function setup() {
 
 	btnInstrucoes = createButton('Instruções');
 	btnInstrucoes.position(windowWidth/2, windowHeight/7+(distanciaBtn*2));
-	btnInstrucoes.mousePressed(teste);
+	btnInstrucoes.mousePressed(paginaInstrucoes);
 	btnInstrucoes.addClass('btn');
 	btnInstrucoes.addClass('btn-danger');
 	btnInstrucoes.style('width', '250px');
@@ -33,7 +35,7 @@ function setup() {
 
 	btnCreditos = createButton('Créditos');
 	btnCreditos.position(windowWidth/2, windowHeight/7+(distanciaBtn*3));
-	btnCreditos.mousePressed(teste);
+	btnCreditos.mousePressed(paginaCreditos);
 	btnCreditos.addClass('btn');
 	btnCreditos.addClass('btn-danger');
 	btnCreditos.style('width', '250px');
@@ -43,7 +45,7 @@ function setup() {
   	musicaFundo.loop();
 	
 }
-let s = 'Coleta Seletiva';
+
 function draw() {
 	background(255);
 
@@ -52,12 +54,21 @@ function draw() {
 
 	image(imgMato, 0, windowHeight-90);
 	image(imgInstrutor, windowWidth/2, windowHeight-350);
+	image(imgBalao, (windowWidth/2)-300, windowHeight-550);
 
 	textSize(32);
 	textAlign(CENTER);
-	text(s, windowWidth/2, 50);
+	text(titulo, windowWidth/2, 50);
 }
 
+function paginaCreditos() {
+	console.log('creditos');
+	window.location.href = "creditos.html";
+}
+function paginaInstrucoes() {
+	console.log('intrucoes');
+	window.location.href = "instrucoes.html";
+}
 function teste() {
 	console.log('teste');	
 }
