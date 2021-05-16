@@ -19,7 +19,7 @@ function setup() {
 
 	btnIniciar = createButton('Iniciar Jogo');
 	btnIniciar.position(windowWidth/2, windowHeight/7+(distanciaBtn*1));
-	btnIniciar.mousePressed(teste);
+	btnIniciar.mousePressed(paginaEscolherFase);
 	btnIniciar.addClass('btn');
 	btnIniciar.addClass('btn-danger');
 	btnIniciar.style('width', '250px');
@@ -53,7 +53,10 @@ function draw() {
 	fill(50);
 
 	image(imgMato, 0, windowHeight-90);
+
 	image(imgInstrutor, windowWidth/2, windowHeight-350);
+	imgInstrutor.resize(200, 250);
+
 	image(imgBalao, (windowWidth/2)-300, windowHeight-550);
 
 	textSize(32);
@@ -69,8 +72,9 @@ function paginaInstrucoes() {
 	console.log('intrucoes');
 	window.location.href = "instrucoes.html";
 }
-function teste() {
-	console.log('teste');	
+function paginaEscolherFase() {
+	console.log('escolher fase');
+	window.location.href = "escolherFase.html";
 }
 
 function mousePressed() {
