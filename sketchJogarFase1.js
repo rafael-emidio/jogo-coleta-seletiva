@@ -1,6 +1,6 @@
 let musicaFundo;
 let titulo = 'Fase 1';
-var qtdeClickEntendi = 0;
+var qtdeClickEntendi = -1;
 
 function preload() {
 	imgMato = loadImage('assets/mato.png');
@@ -20,6 +20,12 @@ function preload() {
 	imgLixeiraOrganico = loadImage('assets/lata-organico.png');
 	imgLixeiraMetal = loadImage('assets/lata-metal.png');
 
+	fala1 = loadSound('assets/falaExplicarFase1.mp3');
+	fala2 = loadSound('assets/falaFase1Vermelha.mp3');
+	fala3 = loadSound('assets/falaFase1Azul.mp3');
+	fala4 = loadSound('assets/falaFase1Azul.mp3');
+	fala5 = loadSound('assets/falaFase1Marrom.mp3');
+	fala6 = loadSound('assets/falaFase1Amarela.mp3');
 }
 
 function setup() {
@@ -40,8 +46,10 @@ function setup() {
 	btnVoltar.style('width', '100px');
 	btnVoltar.style('font-size', '22px');
 
+	musicaFundo.setVolume(0.02);
 	musicaFundo.play();
 	musicaFundo.loop();
+	fala1.play();
 
 }
 
@@ -114,7 +122,31 @@ function paginaInicial() {
 function clickEntendi() {
 	console.log(qtdeClickEntendi);
 	qtdeClickEntendi++;
-	
+	switch (qtdeClickEntendi) {
+		case 1:
+			fala1.stop();
+			fala2.play();
+			break;
+		case 2:
+			fala2.stop();
+			fala3.play();
+			break;
+		case 3:
+			fala3.stop();
+			fala4.play();
+			break;
+		case 4:
+			fala4.stop();
+			fala5.play();
+			break;
+		case 5:
+			fala5.stop();
+			fala6.play();
+			break;
+		default:
+			break;
+	}
+
 
 }
 

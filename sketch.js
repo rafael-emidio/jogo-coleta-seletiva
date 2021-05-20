@@ -6,9 +6,11 @@ function preload() {
 	imgInstrutor = loadImage('assets/instrutor.png');
 	imgBalao = loadImage('assets/balao1.png');
 	musicaFundo = loadSound('assets/som-fundo.mp3');
+	fala1 = loadSound('assets/falaBemVindo.mp3');
 }
 
 function setup() {
+	
 	
 	distanciaBtn = windowHeight/12;
 
@@ -42,7 +44,9 @@ function setup() {
 	btnCreditos.style('font-size', '26px');
 
 	musicaFundo.play();
-  	musicaFundo.loop();
+	fala1.play();
+
+  	//musicaFundo.loop();
 	
 }
 
@@ -78,5 +82,6 @@ function paginaEscolherFase() {
 }
 
 function mousePressed() {
-  userStartAudio();
+	musicaFundo.setVolume(0.02);
+  	userStartAudio();
 }
