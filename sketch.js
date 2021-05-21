@@ -27,16 +27,16 @@ function setup() {
 	btnIniciar.style('width', '250px');
 	btnIniciar.style('font-size', '26px');
 
-	btnInstrucoes = createButton('Instruções');
-	btnInstrucoes.position(windowWidth/2, windowHeight/7+(distanciaBtn*2));
-	btnInstrucoes.mousePressed(paginaInstrucoes);
-	btnInstrucoes.addClass('btn');
-	btnInstrucoes.addClass('btn-danger');
-	btnInstrucoes.style('width', '250px');
-	btnInstrucoes.style('font-size', '26px');
+	// btnInstrucoes = createButton('Instruções');
+	// btnInstrucoes.position(windowWidth/2, windowHeight/7+(distanciaBtn*2));
+	// btnInstrucoes.mousePressed(paginaInstrucoes);
+	// btnInstrucoes.addClass('btn');
+	// btnInstrucoes.addClass('btn-danger');
+	// btnInstrucoes.style('width', '250px');
+	// btnInstrucoes.style('font-size', '26px');
 
 	btnCreditos = createButton('Créditos');
-	btnCreditos.position(windowWidth/2, windowHeight/7+(distanciaBtn*3));
+	btnCreditos.position(windowWidth/2, windowHeight/7+(distanciaBtn*2));
 	btnCreditos.mousePressed(paginaCreditos);
 	btnCreditos.addClass('btn');
 	btnCreditos.addClass('btn-danger');

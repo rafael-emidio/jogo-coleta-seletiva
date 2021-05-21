@@ -23,7 +23,7 @@ function preload() {
 	fala1 = loadSound('assets/falaExplicarFase1.mp3');
 	fala2 = loadSound('assets/falaFase1Vermelha.mp3');
 	fala3 = loadSound('assets/falaFase1Azul.mp3');
-	fala4 = loadSound('assets/falaFase1Azul.mp3');
+	fala4 = loadSound('assets/falaFase1Verde.mp3'); 
 	fala5 = loadSound('assets/falaFase1Marrom.mp3');
 	fala6 = loadSound('assets/falaFase1Amarela.mp3');
 }

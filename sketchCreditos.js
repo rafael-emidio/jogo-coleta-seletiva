@@ -6,6 +6,8 @@ function preload() {
 	imgInstrutor = loadImage('assets/instrutor.png');
 	musicaFundo = loadSound('assets/som-fundo.mp3');
 	imgBalao = loadImage('assets/balaoCreditos.png');
+
+	fala1 = loadSound('assets/falaCreditos.mp3');
 }
 
 function setup() {
@@ -25,8 +27,10 @@ function setup() {
 	btnVoltar.style('width', '250px');
 	btnVoltar.style('font-size', '26px');
 
-	musicaFundo.play();
-  	musicaFundo.loop();
+	musicaFundo.setVolume(0.02);
+	//musicaFundo.play();
+	fala1.play();
+  	//musicaFundo.loop();
 	
 }
 

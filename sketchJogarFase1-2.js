@@ -32,6 +32,8 @@ var gifVidro = false;
 var gifOrganico = false;
 var gifMetal = false;
 
+var pontos = 0;
+
 function preload() {
 	gifFogos = loadImage('assets/fogos1.gif');
 
@@ -64,17 +66,19 @@ function preload() {
 	imgBalaoErrMarrom = loadImage('assets/balaoErrorganico.png');
 	imgBalaoErrAmarelo = loadImage('assets/balaoErrmetal.png');
 
-	fala1 = loadSound('assets/falaFase12Verde.mp3'); //falta
-	fala2 = loadSound('assets/falaFase12Verde.mp3'); //falta
-	fala3 = loadSound('assets/falaFase12Verde.mp3'); 
-	fala4 = loadSound('assets/falaFase12Verde.mp3'); //falta
-	fala5 = loadSound('assets/falaFase12Verde.mp3'); //falta
+	fala1 = loadSound('assets/falaFase12Vermelho.mp3'); 
+	fala2 = loadSound('assets/falaFase12Azul.mp3'); 
+	fala3 = loadSound('assets/falaFase12Verde.mp3');
+	fala4 = loadSound('assets/falaFase12Marrom.mp3'); 
+	fala5 = loadSound('assets/falaFase12Amarelo.mp3'); 
 
 	falaErr1 = loadSound('assets/falaErrVermelho.mp3');
-	falaErr2 = loadSound('assets/falaErrVerde.mp3'); //falta
+	falaErr2 = loadSound('assets/falaErrAzul.mp3');
 	falaErr3 = loadSound('assets/falaErrVerde.mp3');
-	falaErr4 = loadSound('assets/falaErrVerde.mp3'); //falta
-	falaErr5 = loadSound('assets/falaErrVerde.mp3'); //falta
+	falaErr4 = loadSound('assets/falaErrMarrom.mp3');
+	falaErr5 = loadSound('assets/falaErrAmarela.mp3');
+
+	falaParabens = loadSound('assets/falaParabensFase2.mp3')
 
 }
 
@@ -406,7 +410,6 @@ function mouseClicked() {
 					fala5.stop();
 					falaErr5.stop();
 					falaErr5.play();
-
 					falaErr2.stop();
 					falaErr3.stop();
 					falaErr4.stop();
@@ -415,6 +418,7 @@ function mouseClicked() {
 					titulo = "Lata Amarela";
 					break;
 				default:
+
 					break;
 			}
 		}
@@ -428,19 +432,31 @@ function sortearLata() {
 		var lata = indexLatas[Math.floor(Math.random() * indexLatas.length)];
 		console.log('Lata: ' + lata);
 		lataAtual = lata;
-		titulo = "Lata: " + lataAtual;
+		titulo = "";
 		switch (lata) {
+			case 0:
+				falaErr1.stop();
+				falaErr2.stop();
+				falaErr3.stop();
+				falaErr4.stop();
+				falaErr5.stop();
+				fala2.stop();
+				fala3.stop();
+				fala4.stop();
+				fala5.stop();
+				fala1.play();
+				break;
 			case 1:
 				falaErr1.stop();
 				falaErr2.stop();
 				falaErr3.stop();
 				falaErr4.stop();
 				falaErr5.stop();
-				fala1.play();
-				fala2.stop();
+				fala1.stop();
 				fala3.stop();
 				fala4.stop();
 				fala5.stop();
+				fala2.play();
 				break;
 			case 2:
 				falaErr1.stop();
@@ -448,11 +464,11 @@ function sortearLata() {
 				falaErr3.stop();
 				falaErr4.stop();
 				falaErr5.stop();
-				fala2.play();
+				fala2.stop();
 				fala1.stop();
-				fala3.stop();
 				fala4.stop();
 				fala5.stop();
+				fala3.play();
 				break;
 			case 3:
 				falaErr1.stop();
@@ -460,11 +476,11 @@ function sortearLata() {
 				falaErr3.stop();
 				falaErr4.stop();
 				falaErr5.stop();
-				fala3.play();
 				fala2.stop();
+				fala3.stop();
 				fala1.stop();
-				fala4.stop();
 				fala5.stop();
+				fala4.play();
 				break;
 			case 4:
 				falaErr1.stop();
@@ -472,43 +488,68 @@ function sortearLata() {
 				falaErr3.stop();
 				falaErr4.stop();
 				falaErr5.stop();
-				fala4.play();
-				fala2.stop();
-				fala3.stop();
-				fala1.stop();
-				fala5.stop();
-				break;
-			case 5:
-				falaErr1.stop();
-				falaErr2.stop();
-				falaErr3.stop();
-				falaErr4.stop();
-				falaErr5.stop();
-				fala5.play();
 				fala2.stop();
 				fala3.stop();
 				fala4.stop();
 				fala1.stop();
+				fala5.play();
 				break;
 			default:
+
 				break;
 		}
 		descubraLata(lata);
 
 	}
 	else {
-		alert('Parabéns, você completou a primeira fase!');
+		falaErr1.stop();
+		falaErr2.stop();
+		falaErr3.stop();
+		falaErr4.stop();
+		falaErr5.stop();
+		fala2.stop();
+		fala3.stop();
+		fala4.stop();
+		fala1.stop();
+		fala5.stop();
+
 		console.log('jogarFase2');
-		window.location.href = "jogarFase2.html";
+
 		gifPlastico = true;
 		gifPapel = true;
 		gifVidro = true;
 		gifOrganico = true;
 		gifMetal = true;
+		falaParabens.play();
+		pontos = 500;
+		if (confirm('Parabéns, você completou a primeira fase!')) {
+			eraseCookie('pontosFase1');
+			setCookie('pontosFase1',pontos,999);
+			window.location.href = "jogarFase2.html";
+		} else {
+			eraseCookie('pontosFase1');
+			setCookie('pontosFase1',pontos,999);
+			window.location.href = "jogarFase2.html";
+		}
+		//alert();
+
 	}
 }
 
 function mousePressed() {
 
 	userStartAudio();
+}
+
+function setCookie(name, value, minutes) {
+	var expires = "";
+	if (minutes) {
+		var date = new Date();
+		date.setTime(date.getTime() + (minutes * 60 * 1000));
+		expires = "; expires=" + date.toUTCString();
+	}
+	document.cookie = name + "=" + (value || "") + expires + "; path=/";
+}
+function eraseCookie(name) {
+	document.cookie = name + '=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 }

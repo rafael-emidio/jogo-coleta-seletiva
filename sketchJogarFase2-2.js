@@ -3,10 +3,10 @@ let titulo = 'Fase 2 - 2';
 var qtdeClickEntendi = 0;
 var indexResiduos = [
 	1.1, 1.2, 1.3, //residuos de plastico
-	//2.1, 2.2, 2.3, //residuos de papel
-	//3.1, 3.2, 3.3, //residuos de vidro
-	//4.1, 4.2, 4.3, //residuos de organico
-	//5.1, 5.2, 5.3  //residuos de metal
+	2.1, 2.2, 2.3, //residuos de papel
+	3.1, 3.2, 3.3, //residuos de vidro
+	4.1, 4.2, 4.3, //residuos de organico
+	5.1, 5.2, 5.3  //residuos de metal
 ];
 var residuoAtual;
 var x = 0;
@@ -16,6 +16,7 @@ var startY = 0;
 var pressed = false;
 var pontos = 0;
 var gameOver = false;
+var indexLixeira;
 
 
 
@@ -51,6 +52,12 @@ function preload() {
 	imgBalaoErrMarrom = loadImage('assets/balaoErrorganico.png');
 	imgBalaoErrAmarelo = loadImage('assets/balaoErrmetal.png');
 
+	imgBalaoIndVermelha = loadImage('assets/balaoIndResplastico.png');
+	imgBalaoIndAzul = loadImage('assets/balaoIndRespapel.png');
+	imgBalaoIndVerde = loadImage('assets/balaoIndResvidro.png');
+	imgBalaoIndMarrom = loadImage('assets/balaoIndResorganico.png');
+	imgBalaoIndAmarelo = loadImage('assets/balaoIndResmetal.png');
+
 	imgResiduoPlastico1 = loadImage('assets/residuoPlastico1.png');
 	imgResiduoPlastico2 = loadImage('assets/residuoPlastico2.png');
 	imgResiduoPlastico3 = loadImage('assets/residuoPlastico3.png');
@@ -72,18 +79,26 @@ function preload() {
 	imgResiduoMetal3 = loadImage('assets/residuoMetal3.png');
 
 	fala1 = loadSound('assets/falaFase22Vermelho.mp3');
-	fala2 = loadSound('assets/falaFase22Vermelho.mp3'); //falta
-	fala3 = loadSound('assets/falaFase22Vermelho.mp3'); //falta
-	fala4 = loadSound('assets/falaFase22Vermelho.mp3'); //falta
-	fala5 = loadSound('assets/falaFase22Vermelho.mp3');
+	fala2 = loadSound('assets/falaFase22Azul.mp3'); 
+	fala3 = loadSound('assets/falaFase22Verde.mp3'); 
+	fala4 = loadSound('assets/falaFase22Marrom.mp3'); 
+	fala5 = loadSound('assets/falaFase22Amarelo.mp3');
 
 
 }
 
 function setup() {
 
+	
 	distanciaBtn = windowHeight / 12;
 
+	btnDica = createButton('Dica');
+	btnDica.position(windowWidth/2+200, 10);
+	btnDica.mousePressed(tocarAudio);
+	btnDica.addClass('btn');
+	btnDica.addClass('btn-danger');
+	btnDica.style('width', '110px');
+	btnDica.style('font-size', '22px');
 
 	// mimics the autoplay policy
 	getAudioContext().suspend();
@@ -99,6 +114,16 @@ function setup() {
 	btnVoltar.style('font-size', '22px');
 
 	indexResiduos = embaralhar(indexResiduos);
+	indexLixeira = Math.trunc(indexResiduos[0]);
+
+	//tira 5 residuos da lista
+	indexResiduos.pop();
+	indexResiduos.pop();
+	indexResiduos.pop();
+	indexResiduos.pop();
+	indexResiduos.pop();
+
+
 	tocarAudio(Math.trunc(indexResiduos[0]));
 	console.log(indexResiduos);
 
@@ -106,8 +131,10 @@ function setup() {
 	musicaFundo.play();
 	musicaFundo.loop();
 
-	x = windowWidth / 2;
+	x = windowWidth / 2 - 150;
 	y = 100;
+
+	
 
 }
 
@@ -149,7 +176,7 @@ function draw() {
 
 					case 1:
 						especifico = Math.round((indexResiduos[0] % 1) * 10);
-
+						image(imgBalaoIndVermelha, (windowWidth / 2) + 100, windowHeight - 550);
 						switch (especifico) {
 							case 1:
 
@@ -168,6 +195,7 @@ function draw() {
 						break;
 					case 2:
 						especifico = Math.round((indexResiduos[0] % 1) * 10);
+						image(imgBalaoIndAzul, (windowWidth / 2) + 100, windowHeight - 550);
 
 						switch (especifico) {
 							case 1:
@@ -186,6 +214,7 @@ function draw() {
 						break;
 					case 3:
 						especifico = Math.round((indexResiduos[0] % 1) * 10);
+						image(imgBalaoIndVerde, (windowWidth / 2) + 100, windowHeight - 550);
 
 						switch (especifico) {
 							case 1:
@@ -204,6 +233,7 @@ function draw() {
 						break;
 					case 4:
 						especifico = Math.round((indexResiduos[0] % 1) * 10);
+						image(imgBalaoIndMarrom, (windowWidth / 2) + 100, windowHeight - 550);
 
 						switch (especifico) {
 							case 1:
@@ -223,6 +253,7 @@ function draw() {
 						break;
 					case 5:
 						especifico = Math.round((indexResiduos[0] % 1) * 10);
+						image(imgBalaoIndAmarelo, (windowWidth / 2) + 100, windowHeight - 550);
 
 						switch (especifico) {
 							case 1:
@@ -244,7 +275,7 @@ function draw() {
 						console.log("Sua pontuação foi de: " + pontos + " pontos.");
 						gameOver = true;
 						eraseCookie('pontosFase2');
-						setCookie('pontosFase2', pontos, 1);
+						setCookie('pontosFase2', pontos, 60);
 						console.log('relatorio');
 						window.location.href = "relatorio.html";
 						break;
@@ -336,7 +367,8 @@ function mouseDragged() {
 }
 
 function checarResidoLixeira() {
-	indexLixeira = Math.trunc(indexResiduos[0]);
+
+	console.log("LIXEIRA NUMERO: "+indexLixeira);
 	switch (lixeiraAtual) {
 		case 1:
 			alvoX1 = (windowWidth / 2) - 500;
@@ -345,8 +377,9 @@ function checarResidoLixeira() {
 				if (mouseY > alvoY1 && mouseY < alvoY2) {
 					console.log('no lixo');
 					indexResiduos.shift();
-					tocarAudio(indexLixeira);
-					x = windowWidth / 2;
+					indexLixeira = Math.trunc(indexResiduos[0]);
+					tocarAudio();
+					x = windowWidth / 2 - 150;
 					y = 150;
 					pontos += 100;
 				}
@@ -359,8 +392,9 @@ function checarResidoLixeira() {
 				if (mouseY > alvoY1 && mouseY < alvoY2) {
 					console.log('no lixo');
 					indexResiduos.shift();
-					tocarAudio(indexLixeira);
-					x = windowWidth / 2;
+					indexLixeira = Math.trunc(indexResiduos[0]);
+					tocarAudio();
+					x = windowWidth / 2 - 150;
 					y = 150;
 					pontos += 100;
 				}
@@ -373,8 +407,9 @@ function checarResidoLixeira() {
 				if (mouseY > alvoY1 && mouseY < alvoY2) {
 					console.log('no lixo');
 					indexResiduos.shift();
-					tocarAudio(indexLixeira);
-					x = windowWidth / 2;
+					indexLixeira = Math.trunc(indexResiduos[0]);
+					tocarAudio();
+					x = windowWidth / 2 - 150;
 					y = 150;
 					pontos += 100;
 				}
@@ -387,8 +422,9 @@ function checarResidoLixeira() {
 				if (mouseY > alvoY1 && mouseY < alvoY2) {
 					console.log('no lixo');
 					indexResiduos.shift();
-					tocarAudio(indexLixeira);
-					x = windowWidth / 2;
+					indexLixeira = Math.trunc(indexResiduos[0]);
+					tocarAudio();
+					x = windowWidth / 2 - 150;
 					y = 150;
 					pontos += 100;
 				}
@@ -401,8 +437,9 @@ function checarResidoLixeira() {
 				if (mouseY > alvoY1 && mouseY < alvoY2) {
 					console.log('no lixo');
 					indexResiduos.shift();
-					tocarAudio(indexLixeira);
-					x = windowWidth / 2;
+					indexLixeira = Math.trunc(indexResiduos[0]);
+					tocarAudio();
+					x = windowWidth / 2 - 150;
 					y = 150;
 					pontos += 100;
 				}
@@ -414,7 +451,7 @@ function checarResidoLixeira() {
 	}
 }
 
-function tocarAudio(indexLixeira) {
+function tocarAudio() {
 	switch (indexLixeira) {
 
 		case 1:
@@ -426,39 +463,43 @@ function tocarAudio(indexLixeira) {
 			fala1.play();
 			break;
 		case 2:
-			fala2.stop();
 			fala1.stop();			
+			fala2.stop();
 			fala3.stop();
 			fala4.stop();
 			fala5.stop();
 			fala2.play();
 			break;
 		case 3:
+			fala1.stop();			
+			fala2.stop();
 			fala3.stop();
-			fala1.stop();
-			fala2.stop();			
 			fala4.stop();
 			fala5.stop();
 			fala3.play();
 			break;
 		case 4:
-			fala4.stop();
-			fala1.stop();
+			fala1.stop();			
 			fala2.stop();
-			fala3.stop();			
+			fala3.stop();
+			fala4.stop();
 			fala5.stop();
 			fala4.play();
 			break;
 		case 5:
-			fala5.stop();
-			fala1.stop();
+			fala1.stop();			
 			fala2.stop();
 			fala3.stop();
 			fala4.stop();
+			fala5.stop();
 			fala5.play();
 			break;
 		default:
 			break;
 	}
+}
+
+function dica() {
+	fala1.play();
 }
 

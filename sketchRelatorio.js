@@ -26,15 +26,20 @@ function setup() {
 	btnVoltar.addClass('btn-danger');
 	btnVoltar.style('width', '250px');
 	btnVoltar.style('font-size', '26px');
-	
-	titulo = "Você fez " + getCookie('pontosFase2') + ' de 500 pontos na primeira fase.';
-	titulo2 = "Você fez " + getCookie('pontosFase2') + ' de 1000 pontos na segunda fase.';
+
+	pts1  =  getCookie('pontosFase1');
+	pts2  =  getCookie('pontosFase2');
+
+	if(pts1 == null)
+		pts1 = 0;
+	if(pts2 == null)
+		pts2 = 0;
+
+	titulo = "Você fez " + pts1 + ' de 500 pontos na primeira fase.';
+	titulo2 = "Você fez " + pts2 + ' de 1000 pontos na segunda fase.';
 
 	textSize(32);
 	textAlign(CENTER);
-
-	musicaFundo.play();
-  	musicaFundo.loop();
 	
 }
 
